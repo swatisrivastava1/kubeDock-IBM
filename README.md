@@ -57,7 +57,7 @@ alias k=kubectl
 
 
 
-
+CANARY AND BLUE GREEN :
 ```
 
 root@kube-master:~# cat blue-nginx-deploy.yaml
@@ -121,5 +121,93 @@ spec:
       # Optional field
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
 
+
+
+HISTORY :
+
+k create -f blue-nginx-deploy.yaml
+  453  k get pods
+  454  clear
+  455  vi service.yaml
+  456  cat blue-nginx-deploy.yaml
+  457  vi service.yaml
+  458  netstat -tulnp
+  459  clear
+  460  ls
+  461  k get pods
+  462  k get svc
+  463  k describe svc kubernetes
+  464  k get pods -A
+  465  k get pods -A -o wide
+  466  k get svc
+  467  k describe svc kubernetes
+  468  clear
+  469  ls
+  470  k get svc
+  471  k get deploy
+  472  k create -f service.yaml
+  473  k get all
+  474  cat service.yaml
+  475  clear
+  476  k get svc
+  477  k get deploy -o wide
+  478  k get pods -o wide
+  479  clear
+  480  ls
+  481  cat blue-nginx-deploy.yaml
+  482  clear
+  483  vi green-httpd.yaml
+  484  k get deploy
+  485  k create -f green-httpd.yaml
+  486  k get deploy
+  487  k get svc
+  488  ls
+  489  vi service.yaml
+  490  k apply -f service.yaml
+  491  k get svc
+  492  cat service.yaml
+  493  ls
+  494  clear
+  495  cat service.yaml
+  496  k delete svc ext-svc
+  497  vi service.yaml
+  498  k create -f service.yaml
+  499  k get svc
+  500  clear
+  501  k delete deploy --all
+  502  k delete svc --all
+  503  clear
+  504  k get all
+  505  clear
+  506  vi blue-nginx-deploy.yaml
+  507  vi green-httpd.yaml
+  508  vi service.yaml
+  509  k create -f green-httpd.yaml
+  510  k create -f blue-nginx-deploy.yaml
+  511  k create -f service.yaml
+  512  clear
+  513  k get svc
+  514  vi green-httpd.yaml
+  515  vi blue-nginx-deploy.yaml
+  516  k apply -f green-httpd.yaml
+  517  k apply -f blue-nginx-deploy.yaml
+  518  clear
+  519  curl 172.31.62.63:32446
+  520  clear
+  521  curl 172.31.62.63:32446
+  522  vi blue-nginx-deploy.yaml
+  523  k apply -f blue-nginx-deploy.yaml
+  524  clear
+  525  curl 172.31.62.63:32446
+  526  clear
+  527  k get deploy
+  528  k scale deploy green-httpd --replica 5
+  529  k scale deploy green-httpd --replicas 5
+  530  curl 172.31.62.63:32446
+  531  k scale deploy green-httpd --replicas 10
+  532  k get deploy
+  533  k scale deploy blue-nginx --replicas 1
+  534  k get pods
+  535  curl 172.31.62.63:32446
 
 ```
