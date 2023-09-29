@@ -211,3 +211,63 @@ k create -f blue-nginx-deploy.yaml
   535  curl 172.31.62.63:32446
 
 ```
+
+ROLLOUT :
+
+```
+root@kube-master:~# cat deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 20
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: rk1
+  template:
+    metadata:
+      labels:
+        app: rk1
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+
+
+history :
+
+vi deploy.yaml
+  592  k create -f deploy.yaml --record=true
+  593  k get rs
+  594  vi deploy.yaml
+  595  k apply -f deploy.yaml --record=true
+  596  k get rs
+  597  k get deploy
+  598  k get rs
+  599  vi deploy.yaml
+  600  k apply -f deploy.yaml --record=true
+  601  k get rs
+  602  k rollout history deploy nginx
+  603  clear
+  604  k rollout history deploy nginx
+  605  k describe deploy | grep -i image
+  606  k rollout undo deploy nginx --to-revision=2
+  607  k get rs
+  608  k describe deploy | grep -i image
+  609  k rollout undo deploy nginx --to-revision=1
+  610  k describe deploy | grep -i image
+  611  k rollout undo deploy nginx --to-revision=3
+  612  k describe deploy | grep -i image
+  613  clear
+  614  k get deploy
+
+  615  k get deploy -o yaml
+  629  k create deploy dep2 --image httpd --dry-run=client -o yaml > dep2.yaml
+
+```
