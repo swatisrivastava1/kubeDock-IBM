@@ -351,3 +351,164 @@ k get ns
 ```
 
 
+SECRETS :
+
+```
+
+========================
+
+username : cmFtYW5raGFubmEK       ramankhanna
+password : cmFtYW5raGFubmExMjMK   -- ramankhanna123
+
+
+
+
+
+
+
+root@kube-master:~# cat secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: opaque
+data:
+  username: cmFtYW5raGFubmEK
+  password: cmFtYW5raGFubmExMjMK
+
+
+
+
+
+
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      optional: true
+
+
+
+
+==================================================
+
+
+secret as env :
+
+
+root@kube-master:~# cat secret2.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: opaque
+data:
+  username: cmFtYW5raGFubmEK
+  password: cmFtYW5raGFubmExMjMK
+
+
+
+
+
+
+
+root@kube-master:~# cat podsecret2.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secretpod2
+spec:
+  containers:
+  - name: httpd
+    image: httpd
+    env:
+    - name: SECRET_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: username
+    - name: SECRET_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: password
+
+
+
+
+
+
+History :
+
+707  k describe secret -n kubernetes-dashboard admin-user-token-2t9q5
+  708  clear
+  709  history
+  710  clear
+  711  k get secrets
+  712  clear
+  713  echo "ramankhanna" | base64
+  714  echo "ramankhanna123" | base64
+  715  vi secret.yaml
+  716  vi secret.yaml
+  717  cat secret.yaml
+  718  k create -f secret.yaml
+  719  k get secrets
+  720  ls
+  721  rm -rf secret.yaml
+  722  clear
+  723  ls
+  724  k get secrets
+  725  k describe secrets
+  726  clear
+  727  ls
+  728  vi pod.yaml
+  729  ls
+  730  vi podsecret.yaml
+  731  k describe secrets
+  732  clear
+  733  ls
+  734  k create -f podsecret.yaml
+  735  k get pods
+  736  k delete deploy --all
+  737  clear
+  738  k get pods
+  739  clear
+  740  k get pods
+  741  k exec -it secretpod -- /bin/bash
+  742  clear
+  743  k delete secret mysecret
+  744  k get secrets
+  745  vi secret2.yaml
+  746  ls
+  747  k create -f secret2.yaml
+  748  k get secret
+  749  clear
+  750  ls
+  751  vi podsecret2.yaml
+  752  k create -f podsecret2.yaml
+  753  k get pods
+  754  k exec -it secretpod2 -- /bin/bash
+  755  cat secret2.yaml
+  756  ls
+  757  cat podsecret2.yaml
+
+
+```
+
+
+
+
