@@ -53,4 +53,73 @@ alias k=kubectl
   333  k scale deploy dep1 --replicas 5
   334  k describe svc dep2svc
 
-``
+```
+
+
+
+
+```
+
+root@kube-master:~# cat blue-nginx-deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blue-nginx
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: rk1
+  template:
+    metadata:
+      labels:
+        app: rk1
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+
+
+
+root@kube-master:~# cat green-httpd.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green-httpd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rk1
+  template:
+    metadata:
+      labels:
+        app: rk1
+    spec:
+      containers:
+      - name: httpd
+        image: httpd
+        ports:
+        - containerPort: 80
+
+
+root@kube-master:~# cat service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: ext-svc
+spec:
+  type: NodePort
+  selector:
+    app: rk1
+  ports:
+      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+    - port: 80
+      targetPort: 80
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+
+
+```
