@@ -270,4 +270,84 @@ vi deploy.yaml
   615  k get deploy -o yaml
   629  k create deploy dep2 --image httpd --dry-run=client -o yaml > dep2.yaml
 
+
 ```
+KUBERNETTES DASHBOARD :
+
+```
+
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+
+history :
+
+
+k get ns
+  643  cleaqr
+  644  clear
+  645  kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+  646  k get pods
+  647  clear
+  648  k get pods -A
+  649  clear
+  650  k get svc -A
+  651  k describe  svc kubernetes-dashboard -n kubernetes-dashboard
+  652  k get pods -A
+  653  k get pods -A -o wide
+  654  clear
+  655  k get svc -A
+  656  k edit svc kubernetes-dashboard
+  657  k edit svc kubernetes-dashboard -n kubernetes-dashboard
+  658  k describe  svc kubernetes-dashboard -n kubernetes-dashboard
+  659  k get pods -A
+  660  k describe pod kubernetes-dashboard-658b66597c-j57lg | grep -i image
+  661  k describe pod kubernetes-dashboard-658b66597c-j57lg -n kubernetes-dashboard | grep -i image
+  662  clear
+  663  k get sa
+  664  k get sa -n kubernetes-dashboard
+  665  k get roles
+  666  k get roles -n kubernetes-dashboard
+  667  k describe roles -n kubernetes-dashboard
+  668  clear
+  669  k get all -n kubernetes-dashboard
+  670  k get roles -n kubernetes-dashboard
+  671  k describe roles -n kubernetes-dashboard
+  672  k describe sa -n kubernetes-dashboard
+  673  k describe rolebinding -n kubernetes-dashboard
+  674  clear
+  675  k get secrets
+  676  k get secrets -n kubernetes-dashboard
+  677  k describe secret kubernetes-dashboard-token-4245v  -n kubernetes-dashboard
+  678  k describe roles -n kubernetes-dashboard
+  679  clear
+  680  ls
+  681  vi admin.yaml
+  682  k create -f admin.yaml
+  683  k get sa -n kubernetes-dashboard
+  684  k describe sa admin-user -n kubernetes-dashboard
+  685  k get rolebindings -n kubernetes-dashobard
+  686  k get rolebindings -n kubernetes-dashboard
+  687  clear
+  688  k get roles -A
+  689  k get clusterroles -A
+  690  k describe clusterrole cluster-admin
+  691  clear
+  692  vi clusterbinding.yaml
+  693  k create -f clusterbinding.yaml
+  694  k get sa -n kubernetes-dashboard
+  695  k describe sa -n kubernetes-dashboard
+  696  clear
+  697  kubectl -n kubernetes-dashboard create token admin-user
+  698  clear
+  699  k get secrets -n kubernetes-dashboard
+  700  k describe -n kubernetes-dashboard admin-user-token-2t9q5
+  701  k describe secret -n kubernetes-dashboard admin-user-token-2t9q5
+  702  clear
+  703  k get pods
+  704  k create deploy dep2 --image httpd --replicas 10
+  705  k get pods
+  706  k describe -n kubernetes-dashboard admin-user-token-2t9q5
+  707  k describe secret -n kubernetes-dashboard admin-user-token-2t9q5
+
+```
+
+
