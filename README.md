@@ -574,5 +574,173 @@ apt install unzip -y
 
 ```
 
+NGINX INGRESS CONROLLER-SETUP :
+
+```
 
 
+ingress :
+
+-- install helm
+
+--- create diff ns for ingress
+
+
+--- creating ingres controller :
+
+
+
+root@eks-controller:~/.kube# helm install my-release ingress-nginx/ingress-nginx \
+> --namespace ingress \
+> --set controller.replicaCount=2 \
+> --set controller.nodeSelector."beta\.kubernetes\.io/os=linux" \
+> --set default.defaultBackend.nodeSelector."beta\.kubernetes\.io/os=linux"
+
+
+
+
+--- after installing ingress controller , it created loadb ip as well it created external aws lb as well
+
+
+/raman : nginx
+
+/raman2 : httpd
+
+
+
+root@kube-worker2:~/.kube# cat dep.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-app
+  labels:
+    app: test-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test-app
+  template:
+    metadata:
+      labels:
+        app: test-app
+    spec:
+      containers:
+      - name: test-app
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: raman-service
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+  selector:
+    app: test-app
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: 'nginx'
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /raman(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: raman-service
+            port:
+              number: 80
+
+
+
+
+
+
+
+
+
+history :
+
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+   68  chmod 700 get_helm.sh
+   69  ./get_helm.sh
+   70  helm
+   71  clear
+   72  k get ns
+   73  clear
+   74  k create ns ingress
+   75  k top nodes
+   76  helm repo list
+   77  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+   78  helm repo list
+   79  k get all -n ingress
+   80  helm repo update
+   81  helm install my-release ingress-nginx/ingress-nginx --namespace ingress set controller.replicaCount=2 set controller.nodeSelector."beta\.kubernetes\.io/os=linux" set default.defaultBackend.nodeSelector."beta\.kubernetes\.io/os=linux"
+   82  helm install my-release ingress-nginx/ingress-nginx > --namespace ingress > t controller.replicaCount=2 > set controller.nodeSelector."beta\.kubernetes\.io/os=linux" > set default.defaultBackend.nodeSelector."beta\.kubernetes\.io/os=linux"
+   83  helm install my-release ingress-nginx/ingress-nginx > > --namespace ingress \
+   84  > > t controller.replicaCount=2 \
+   85  > > set controller.nodeSelector."beta\.kubernetes\.io/os=linux" \
+   86  > > set default.defaultBackend.nodeSelector."beta\.kubernetes\.io/os=linux"
+   87  clear
+   88  helm install my-release ingress-nginx/ingress-nginx --namespace ingress --set controller.replicaCount=2 --set controller.nodeSelector."beta\.kubernetes\.io/os=linux" --set default.defaultBackend.nodeSelector."beta\.kubernetes\.io/os=linux"
+   89  k get all -n ingress
+   90  history
+   91  clear
+   92  vi eksfile.yaml
+   93  k create -f eksfile.yaml -n ingress
+   94  clear
+   95  k get all -n ingress
+   96  k get ingress test-app-ingress -n ingress
+   97  k get pods -n ingress
+   98  vi eksfile.yaml
+   99  k apply -f eksfile.yaml
+  100  k delete -f eksfile.yaml
+  101  k apply -f eksfile.yaml -n ingress
+  102  clear
+  103  k get pods
+  104  k get pods -n ingress
+  105  k get all -n ingress
+  106  vi eksfile.yaml
+  107  k delete -f eksfile.yaml
+  108  k delete -f eksfile.yaml -n ingress
+  109  k get all -n ingress
+  110  k get ingress test-ingress -n ingress
+  111  k get ingress -n ingress
+  112  k delete ingress
+  113  k delete ingress test-app-ingress -n ingress
+  114  k get ingress -n ingress
+  115  k apply -f eksfile.yaml -n ingress
+  116  k get ingress -n ingress
+  117  vi eksfile.yaml
+  118  k apply -f eksfile.yaml -n ingress
+  119  vi eksfile.yaml
+  120  k get all
+  121  clear
+  122  k get all -n ingress
+  123  vi eksfile.yaml
+  124  k apply -f eksfile.yaml -n ingress
+  125  clear
+  126  vi eksfile.yaml
+  127  k apply -f eksfile.yaml -n ingress
+
+
+```
