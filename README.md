@@ -509,6 +509,70 @@ History :
 
 ```
 
+EKS CLUSTER AND ECR :
+
+```
+-- i created cluster : control
+
+worker nodes  2
+
+
+-- created a new env server :
+
+frm thsar servr connect to cont plane eks
+
+https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+insalled aws cli
+
+
+
+HIstory :
+
+
+apt install unzip -y
+   45  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+   46  ls
+   47  unzip awscliv2.zip
+   48  sudo ./aws/install
+   49  aws
+   50  clear
+   51  aws --version
+   52  aws configure
+   53  aws
+   54  aws s3 ls
+   55  clear
+   56  aws eks update-kubeconfig --region us-east-1 --name raman-eks
+   57  ls -a
+   58  cd  .kube
+   59  ls
+   60  cat config
+   61  clear
+   62  kubecl get nodes
+   63  kubectl get nodes
+   64  clear
+   65  kubectl -v
+   66  kubectl --version
+   67  clear
+   68  alias k=kubectl
+   69  hostnamectl set-hostname eks-controller
+
+
+
+
+ k run app1 --image nginx
+   51  k get pods
+   52  docker pull ramann123/ibm-repo:ramanimage2
+   53  docker images
+   54  clear
+   55  docker images
+   56  aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 685421549691.dkr.ecr.us-east-1.amazonaws.com
+   57  docker tag ramann123/ibm-repo:ramanimage2 685421549691.dkr.ecr.us-east-1.amazonaws.com/raman-repo:ramanimage
+   58  docker images
+   59  docker push 685421549691.dkr.ecr.us-east-1.amazonaws.com/raman-repo:ramanimage
+   60  clear
+   61  k run app2 --image public.ecr.aws/docker/library/redis:alpine3.18
+
+```
 
 
 
