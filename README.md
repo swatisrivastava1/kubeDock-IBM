@@ -744,3 +744,156 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 
 
 ```
+
+UPGRADE /MAINENANCE :
+```
+
+cordon : isolation  : uncordon
+
+draining :
+
+
+Tech@2020
+
+
+
+
+ 1.21.1
+v1.21.1
+
+
+
+1.22.0-00
+
+
+
+apt-mark unhold kubeadm && \
+apt-get update && apt-get install -y kubeadm='1.22.0*' && \
+apt-mark hold kubeadm
+
+
+
+
+
+COMPONENT   CURRENT       TARGET
+kubelet     3 x v1.21.1   v1.22.17
+
+Upgrade to the latest stable version:
+
+COMPONENT                 CURRENT    TARGET
+kube-apiserver            v1.21.14   v1.22.17
+kube-controller-manager   v1.21.14   v1.22.17
+kube-scheduler            v1.21.14   v1.22.17
+kube-proxy                v1.21.14   v1.22.17
+CoreDNS                   v1.8.0     v1.8.4
+etcd                      3.4.13-0   3.5.0-0
+
+You can now apply the upgrade by executing the following command:
+
+        kubeadm upgrade apply v1.22.17
+
+
+
+
+HISTYORY OF MASTER :
+
+apt-cache madison kubeadm
+  790  kubeadm
+  791  kubeadm version
+  792  apt-mark unhold kubeadm && apt-get update && apt-get install -y kubeadm='1.22.0*' && apt-mark hold kubeadm
+  793  kubeadm version
+  794  kubectl get nodes
+  795  kubeadm upgrade plan
+  796  kubeadm upgrade apply v1.22.17
+  797  kubeadm upgrade apply v1.22.0
+  798  kubecl get nodes
+  799  kubectl get nodes
+  800  apt-mark unhold kubelet kubectl && apt-get update && apt-get install -y kubelet='1.28.x-*' kubectl='1.28.x-*' && apt-
+  801  apt-mark unhold kubelet kubectl && apt-get update && apt-get install -y kubelet='1.22.0' kubectl='1.22.0' && apt-mark hold kubelet kubectl
+  802  apt-mark unhold kubelet kubectl && apt-get update && apt-get install -y kubelet=1.22.0-00 kubectl=1.22.0-00 && apt-mark hold kubelet kubectl
+  803  sudo systemctl daemon-reload
+  804  sudo systemctl restart kubelet
+  805  kubectl get nodes
+  806  kubectl create deploy dep3 --image httpd --replicas 15
+  807  k get pods -o wide
+  808  kubectl get pods -o wide
+  809  clear
+  810  kubectl get pods -o wide
+  811  kubectl get nodes
+  812  kubectl drain kube-worker2 --ignore-daemonsets
+  813  kubectl drain kube-worker2 --ignore-daemonsets --force
+  814  kubectl drain kube-worker2 --ignore-daemonsets --force --delete-emptydir-data
+  815  kubectl get nodes
+  816  kubectl get pods -o wide
+  817  kubectl get nodes
+  818  clear
+  819  kubecl get nodes
+  820  kubectl get nodes
+  821  kubectl uncordon kube-worker2
+  822  kubectl get nodes
+  823  kubectl cordon kube-worker2
+  824  kubectl drain kube-worker2 --ignore-daemonsets
+  825  kubectl get pods
+  826  kubectl get pods -o wide
+  827  clear
+  828  kubectl get nodes
+  829  kubectl delete node kube-worker2
+  830  kubectl get nodes
+  831  kubeadm token create --print-join-command
+  832  kubectl get nodes
+  833  clear
+  834  kubectl get nodes
+  835  kubectl get pods -o wide
+  836  kubectl edit deploy dep3
+  837  kubectl label node kube-worker2 "name=raman"
+  838  k edit deploy dep3
+  839  kubectl edit deploy dep3
+  840  kubectl get pods -o wide
+  841  kubectl get pods -o wide --watch
+
+
+
+HISTORY OF WORKER2 :
+
+apt-mark unhold kubeadm && apt-get update && apt-get install -y kubeadm=1.22.0-00 && apt-mark hold kubeadm
+  349  kubeadm upgrade node
+  350  apt-mark unhold kubelet kubectl && apt-get update && apt-get install -y kubelet=1.20.x-00 kubectl=1.20.x-00 && \
+  351  apt-mark unhold kubelet kubectl && apt-get update && apt-get install -y kubelet=1.20.0-00 kubectl=1.20.0-00 && apt-mark hold kubelet kubectl
+  352  apt-mark unhold kubelet kubectl && apt-get update && apt-get install -y kubelet=1.22.0-00 kubectl=1.22.0-00 && apt-mark hold kubelet kubectl
+  353  clear
+  354  docker ps
+  355  clear
+  356  kubeadm join 172.31.62.63:6443 --token hqfa65.gk37h3cfhrfp4y2r --discovery-token-ca-cert-hash sha256:1bbd9b951559e380668559a198e9908c9f643237c6bf0eefba317cd2865c3fab
+  357  kubeadm reset
+  358  kubeadm join 172.31.62.63:6443 --token hqfa65.gk37h3cfhrfp4y2r --discovery-token-ca-cert-hash sha256:1bbd9b951559e380668559a198e9908c9f643237c6bf0eefba317cd2865c3fab
+  359  clear
+  360  kubeadm reset
+  361  ls
+  362  ls -a
+  363  cd .kube
+  364  ls
+  365  cat config
+  366  q!
+  367  ls
+  368  cd ..
+  369  ls
+  370  ls -a
+  371  rm -ef .kube/
+  372  rm -rf .kube/
+  373  clear
+  374  kubeadm reset
+  375  kubeadm join 172.31.62.63:6443 --token hqfa65.gk37h3cfhrfp4y2r --discovery-token-ca-cert-hash sha256:1bbd9b951559e380668559a198e9908c9f643237c6bf0eefba317cd2865c3fab
+  376  kubeadm reset
+  377  clear
+  378  ls -a
+  379  cd /home
+  380  ls -a
+  381  cd /root/
+  382  ls
+  383  kubeadm join 172.31.62.63:6443 --token do4frh.qgwzgchikx4yd3jv --discovery-token-ca-cert-hash sha256:1bbd9b951559e380668559a198e9908c9f643237c6bf0eefba317cd2865c3fab
+
+```
+
+
+
+
